@@ -81,7 +81,7 @@ root@localhost's password:
 
 不同于`反向纯流量隧道模式`此模式主要用于连接带有页面的服务，例如连接远程的`3389`远程桌面，这类流量需要更加精细的控制，所以需要使用本隧道完成。
 
-服务端侦听地址，服务端第一次启动可能会错误，再次启动一次即可。
+服务端侦听地址。
 ```C
 Shell> FlowForward.exe TwoForwardServer --ListenPort 9999 --LocalPort 8888
 
