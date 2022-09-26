@@ -62,7 +62,7 @@ Shell> FlowForward.exe ReverseServer --ListenPort 9999 --LocalPort 8888
 ```
 客户端运行反弹命令，其中`ServerAddress:ServerPort`用于指定服务端地址以及端口号，其中`ConnectAddress:ConnectPort`则是内网中其他主机的IP地址。
 ```C
-Shell> FlowForward.exe ReverseClient --ServerAddress 127.0.0.1 --ServerPort 9999 
+Shell> FlowForward.exe ReverseClient --ServerAddress 127.0.0.1 --ServerPort 9999 \
 --ConnectAddress 8.141.58.64 --ConnectPort 22
 
 [*] 反向纯流量隧道模式 (客户端)
@@ -75,48 +75,28 @@ Shell> ssh root@localhost -p 8888
 root@localhost's password:
 ```
 
+ - 双向隧道转发模式
 
+当处于双向隧道转发模式下用户需要做两件事，服务端需要在本机运行，客户端需要在内网中的一台主机上运行。
 
+不同于`反向纯流量隧道模式`此模式主要用于连接带有页面的服务，例如连接远程的`3389`远程桌面，这类流量需要更加精细的控制，所以需要使用本隧道完成。
 
+服务端侦听地址
+```C
+Shell> FlowForward.exe TwoForwardServer --ListenPort 9999 --LocalPort 8888
 
+[*] 双向隧道转发模式 (服务端)
+[+] 侦听端口: 9999
+[+] 本机连接地址: localhost:8888
+```
 
+客户端执行如下命令,主动连接服务端`127.0.0.1:9999`端口，连接成功后转发`8.141.58.64:3389`的流量到服务端。
+```C
+Shell> FlowForward.exe TwoForwardClient --ServerAddress 127.0.0.1 --ServerPort 9999 \
+--ConnectAddress 8.141.58.64 --ConnectPort 3389
 
-
-
-
-
-
-
-
-
-
-
-更新文档中。。。。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[*] 双向隧道转发模式 (客户端)
+[+] 服务端地址 127.0.0.1:9999
+[+] 连接内网地址 8.141.58.64:3389
+```
+此时通过远程协助连接本机的`localhost:8888`端口则相当于连接了内网主机`8.141.58.64:3389`端口，实现直接访问。
