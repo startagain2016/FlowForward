@@ -21,11 +21,10 @@ Shell> FlowForward.exe
   | || |___|  __/  |  _| (_) | |    V  V / (_| | | | (_| | | | | | (_| |
   |_| ____|_|     |_|  ___/|_|    _/_/ __ _|_|  __._|_|_| |_|__. |
                                                                    |___/
-         TCP 流量隧道转发工具
+TCP 流量隧道转发工具
+
 E-Mail: me@lyshark.com
-
 Usage:
-
          --ListenPort          指定转发服务器侦听端口
          --RemoteAddress       指定对端IP地址
          --RemotePort          指定对端端口号
