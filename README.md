@@ -47,7 +47,30 @@ Shell> ssh root@localhost -p 8888
 root@localhost's password:
  ```
  
- 
+  - 反向纯流量隧道模式
+
+当处于反向纯流量隧道模式下用户需要做两件事，服务端需要在本机运行，客户端需要在内网中的一台主机上运行。
+
+服务端运行侦听命令，执行后本地将侦听`9999`端口等待客户端连接。
+```C
+Shell> FlowForward.exe ReverseServer --ListenPort 9999 --LocalPort 8888
+[*] 反向纯流量隧道模式 (服务端)
+[+] 侦听端口: 9999
+[+] 本机连接地址: localhost:8888
+```
+客户端运行反弹命令，其中`ServerAddress:ServerPort`用于指定服务端地址以及端口号，其中`ConnectAddress:ConnectPort`则是内网中其他主机的IP地址。
+```C
+Shell> FlowForward.exe ReverseClient --ServerAddress 127.0.0.1 --ServerPort 9999 --ConnectAddress 8.141.58.64 --ConnectPort 22
+
+[*] 反向纯流量隧道模式 (客户端)
+[+] 服务端地址 127.0.0.1:9999
+[+] 连接内网地址 8.141.58.64:22
+```
+如果你游行获得了内网一台主机的控制权，而你想攻击其他主机，则当你建立了如上隧道，攻击本机的`127.0.0.1:9999`则相当于在攻击内网中的`8.141.58.64:22`这个地址，其实是在变相的攻击，如上客户端执行后，服务端连接本地`8888`端口，则实际连接到了`8.141.58.64:22`端口上。
+```C
+Shell> ssh root@localhost -p 8888
+root@localhost's password:
+```
 
 
 
