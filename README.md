@@ -39,6 +39,7 @@ Usage:
 当处于正向隧道模式下，用户访问本机的`8888`端口则流量将被转发到远端的`8.141.58.64:22`地址上，此时如果使用`SSH`连接本机的`8888`端口相当于连接了`8.141.58.64`的`22`号端口。
  ```C
 Shell> FlowForward.exe Forward --ListenPort 8888 --RemoteAddress 8.141.58.64 --RemotePort 22
+
 [*] 正向隧道模式
 [+] 本机侦听端口: 8888
 [+] 流量转发地址 8.141.58.64:22
@@ -54,13 +55,15 @@ root@localhost's password:
 服务端运行侦听命令，执行后本地将侦听`9999`端口等待客户端连接。
 ```C
 Shell> FlowForward.exe ReverseServer --ListenPort 9999 --LocalPort 8888
+
 [*] 反向纯流量隧道模式 (服务端)
 [+] 侦听端口: 9999
 [+] 本机连接地址: localhost:8888
 ```
 客户端运行反弹命令，其中`ServerAddress:ServerPort`用于指定服务端地址以及端口号，其中`ConnectAddress:ConnectPort`则是内网中其他主机的IP地址。
 ```C
-Shell> FlowForward.exe ReverseClient --ServerAddress 127.0.0.1 --ServerPort 9999 --ConnectAddress 8.141.58.64 --ConnectPort 22
+Shell> FlowForward.exe ReverseClient --ServerAddress 127.0.0.1 --ServerPort 9999 
+--ConnectAddress 8.141.58.64 --ConnectPort 22
 
 [*] 反向纯流量隧道模式 (客户端)
 [+] 服务端地址 127.0.0.1:9999
